@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "878120993702",
+    "project_id": "todolist-e06c5",
+    "storage_bucket": "todolist-e06c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878120993702:android:0ec30db3a451b3cb1a0567",
+        "android_client_info": {
+          "package_name": "it.crissscode.todolistmaui"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6T2O0Bgq6DYUrzASJffeivMQtWTkysO0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
