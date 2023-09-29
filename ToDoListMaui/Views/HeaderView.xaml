@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ToDoListMaui.Views.HeaderView"
-             x:Name="this">
-    <StackLayout BackgroundColor="Transparent">
-        <Rectangle BackgroundColor="HotPink" WidthRequest="50" HeightRequest="50" Rotation="15"/>
-        <!--<VerticalStackLayout Padding="0,80,0,0" Rotation="-15">
-            <Label 
-                x:Name="TitleLabel"
-                FontSize="50"
-                TextColor="White"
-                FontAttributes="Bold"/>
-            <Label 
-                x:Name="SubTitleLabel"
-                FontSize="30"
-                TextColor="White"/>
-        </VerticalStackLayout>-->
+<ContentView
+    x:Class="ToDoListMaui.Views.HeaderView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Name="this">
+    <StackLayout>
+        <Frame
+            x:Name="BackgroundBox"
+            Margin="0,-100,0,0"
+            HeightRequest="350"
+            WidthRequest="{Binding Source={x:Reference this}, Path=RectangleWidth}">
+            <StackLayout
+                x:Name="LabelStackLayout"
+                Padding="0,80,0,0"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+                <Label
+                    x:Name="TitleLabel"
+                    FontAttributes="Bold"
+                    FontSize="50"
+                    TextColor="White" />
+                <Label
+                    x:Name="SubTitleLabel"
+                    FontSize="30"
+                    TextColor="White" />
+            </StackLayout>
+        </Frame>
+
     </StackLayout>
 </ContentView>

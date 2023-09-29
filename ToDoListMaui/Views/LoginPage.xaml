@@ -8,7 +8,7 @@
     <VerticalStackLayout>
         <views:HeaderView Title="To Do List"
                           SubTitle="Get Things done"
-                          Angle="15"
-                          BackgroundColor="HotPink"/>
+                          Angle="30"
+                          BgColor="HotPink"/>
     </VerticalStackLayout>
 </ContentPage>

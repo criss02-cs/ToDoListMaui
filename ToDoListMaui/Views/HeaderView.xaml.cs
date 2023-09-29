@@ -8,13 +8,15 @@ public partial class HeaderView : ContentView
         nameof(SubTitle), typeof(string), typeof(HeaderView), propertyChanged: SubTitlePropertyChanged);
     private static readonly BindableProperty AngleProperty = BindableProperty.Create(
         nameof(Angle), typeof(double), typeof(HeaderView), propertyChanged: AnglePropertyChanged);
-    private new static readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(
-        nameof(BackgroundColor), typeof(double), typeof(HeaderView), propertyChanged: BackgroundColorPropertyChanged);
+    private static readonly BindableProperty BgColorProperty = BindableProperty.Create(
+        nameof(BgColor), typeof(double), typeof(HeaderView), propertyChanged: BackgroundColorPropertyChanged);
 
     public HeaderView()
     {
         InitializeComponent();
     }
+
+    public double RectangleWidth => DeviceDisplay.Current.MainDisplayInfo.Width * 3;
 
     public string Title
     {
@@ -34,10 +36,10 @@ public partial class HeaderView : ContentView
         set => SetValue(AngleProperty, value);
     }
 
-    public new Color BackgroundColor
+    public Color BgColor
     {
-        get => (Color)GetValue(BackgroundColorProperty);
-        set => SetValue(BackgroundColorProperty, value);
+        get => (Color)GetValue(BgColorProperty);
+        set => SetValue(BgColorProperty, value);
     }
 
     private static void TitlePropertyChanged(BindableObject bindable, object oldvalue, object newValue)
@@ -59,6 +61,7 @@ public partial class HeaderView : ContentView
         if (bindable is not HeaderView control) return;
         if (newValue is not double value) return;
         control.BackgroundBox.Rotation = value;
+        control.LabelStackLayout.Rotation = -value;
     }
 
     private static void BackgroundColorPropertyChanged(BindableObject bindable, object oldvalue, object newValue)
