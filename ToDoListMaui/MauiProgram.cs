@@ -30,6 +30,7 @@ namespace ToDoListMaui
 
             builder.Services.AddSingleton<IFirebaseAuth>(new FirebaseAuthImplementation());
             builder.Services.AddSingleton<MainPageViewModel>();
+            builder.Services.AddTransient<LoginViewModel>();
             
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddTransient<AccountView>();

@@ -23,6 +23,7 @@
                 <Label
                     x:Name="SubTitleLabel"
                     FontSize="30"
+                    HorizontalTextAlignment="Center"
                     TextColor="White" />
             </StackLayout>
         </Frame>

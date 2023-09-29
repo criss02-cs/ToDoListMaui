@@ -8,8 +8,8 @@ public partial class HeaderView : ContentView
         nameof(SubTitle), typeof(string), typeof(HeaderView), propertyChanged: SubTitlePropertyChanged);
     private static readonly BindableProperty AngleProperty = BindableProperty.Create(
         nameof(Angle), typeof(double), typeof(HeaderView), propertyChanged: AnglePropertyChanged);
-    private static readonly BindableProperty BgColorProperty = BindableProperty.Create(
-        nameof(BgColor), typeof(double), typeof(HeaderView), propertyChanged: BackgroundColorPropertyChanged);
+    public static readonly BindableProperty BgColorProperty = BindableProperty.Create(
+        nameof(BgColor), typeof(Color), typeof(HeaderView), propertyChanged: BackgroundColorPropertyChanged);
 
     public HeaderView()
     {
