@@ -5,10 +5,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewModels="clr-namespace:ToDoListMaui.ViewModels"
     xmlns:views="clr-namespace:ToDoListMaui.Views"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:Name="This"
     Title="LoginPage"
     x:DataType="viewModels:LoginViewModel"
     Shell.NavBarIsVisible="False">
+
+    <Page.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="{Binding Source={x:Reference This}, Path=Pink}"
+                                   StatusBarStyle="LightContent"/>
+    </Page.Behaviors>
     <VerticalStackLayout>
         <views:HeaderView
             Title="To Do List"
@@ -23,11 +29,14 @@
             <Frame Margin="5,5,5,20" BackgroundColor="White" HeightRequest="180" VerticalOptions="Start">
                 <VerticalStackLayout>
                     <Entry Text="{Binding Email}" Placeholder="Email"/>
-                    <Entry Text="{Binding Password}" Placeholder="Password" />
+                    <Entry Text="{Binding Password}" Placeholder="Password" IsPassword="True" />
                     <Button
                         BackgroundColor="Blue"
                         Command="{Binding LoginCommand}"
                         FontAttributes="Bold"
+                        FontSize="15"
+                        Padding="5"
+                        HeightRequest="30"
                         Text="Log In" />
                 </VerticalStackLayout>
             </Frame>
@@ -40,7 +49,7 @@
                 Text="Create An Account"
                 TextColor="Blue">
                 <Label.GestureRecognizers>
-                    <TapGestureRecognizer />
+                    <TapGestureRecognizer Command="{Binding GoToRegisterPageCommand}" />
                 </Label.GestureRecognizers>
             </Label>
         </VerticalStackLayout>

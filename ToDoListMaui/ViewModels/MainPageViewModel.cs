@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Firebase.Auth;
 using Plugin.Firebase.Auth;
+using Plugin.Firebase.Firestore;
 using ToDoListMaui.Views;
 
 namespace ToDoListMaui.ViewModels
@@ -9,7 +10,7 @@ namespace ToDoListMaui.ViewModels
     {
         public bool IsSignedIn => Auth.CurrentUser != null;
 
-        public MainPageViewModel(IFirebaseAuth auth) : base(auth)
+        public MainPageViewModel(IFirebaseAuth auth, IFirebaseFirestore db) : base(auth, db)
         {
         }
 

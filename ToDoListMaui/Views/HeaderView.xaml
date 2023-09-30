@@ -19,6 +19,7 @@
                     x:Name="TitleLabel"
                     FontAttributes="Bold"
                     FontSize="50"
+                    HorizontalTextAlignment="Center"
                     TextColor="White" />
                 <Label
                     x:Name="SubTitleLabel"
