@@ -6,6 +6,7 @@ using Plugin.Firebase.Bundled.Shared;
 using Plugin.Firebase.Firestore;
 using ToDoListMaui.ViewModels;
 using ToDoListMaui.Views;
+
 #if IOS
 using Plugin.Firebase.Bundled.Platforms.iOS;
 #else
@@ -79,7 +80,7 @@ namespace ToDoListMaui
                 isFunctionsEnabled: false,
                 isRemoteConfigEnabled: false,
                 isStorageEnabled: false,
-                googleRequestIdToken: "537235599720-723cgj10dtm47b4ilvuodtp206g0q0fg.apps.googleusercontent.com");
+                googleRequestIdToken: "AIzaSyDZu3a75CFv3OqnRHzgqmZIb2l__aKpR2c.apps.googleusercontent.com");
             return settings;
         }
     }

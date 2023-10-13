@@ -67,6 +67,7 @@
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="Plugin.Firebase" Version="2.0.5" />
 		<PackageReference Include="Plugin.Firebase.Crashlytics" Version="2.0.1" />
+		<PackageReference Include="Xamarin.Firebase.iOS.Auth" Version="8.10.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>
