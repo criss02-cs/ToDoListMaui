@@ -7,6 +7,12 @@ using Microsoft.Extensions.Logging;
 using ToDoListMaui.ViewModels;
 using ToDoListMaui.Views;
 
+#if IOS
+using Plugin.Firebase.Bundled.Platforms.iOS;
+#else
+using Plugin.Firebase.Bundled.Platforms.Android;
+#endif
+
 namespace ToDoListMaui
 {
     public static class MauiProgram
@@ -69,6 +75,22 @@ namespace ToDoListMaui
             };
             builder.Services.AddSingleton<IFirebaseAuthClient>(new FirebaseAuthClient(config));
             return builder;
+        }
+
+
+        private static CrossFirebaseSettings CreateCrossFirebaseSettings()
+        {
+            var settings = new CrossFirebaseSettings(
+                isAnalyticsEnabled: false,
+                isAuthEnabled: true,
+                isCloudMessagingEnabled: false,
+                isDynamicLinksEnabled: false,
+                isFirestoreEnabled: true,
+                isFunctionsEnabled: false,
+                isRemoteConfigEnabled: false,
+                isStorageEnabled: false,
+                googleRequestIdToken: "AIzaSyDZu3a75CFv3OqnRHzgqmZIb2l__aKpR2c.apps.googleusercontent.com");
+            return settings;
         }
     }
 }
