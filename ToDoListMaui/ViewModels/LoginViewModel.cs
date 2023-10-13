@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net.Http.Json;
+using System.Text.Json.Serialization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Plugin.Firebase.Auth;
-using Plugin.Firebase.Firestore;
+using Firebase.Auth;
+using Newtonsoft.Json;
 using ToDoListMaui.Views;
 
 namespace ToDoListMaui.ViewModels
@@ -16,7 +13,7 @@ namespace ToDoListMaui.ViewModels
         [ObservableProperty] private string _email;
         [ObservableProperty] private string _password;
         [ObservableProperty] private string _errorMessage;
-        public LoginViewModel(IFirebaseAuth auth, IFirebaseFirestore db) : base(auth, db)
+        public LoginViewModel(IFirebaseAuthClient auth) : base(auth)
         {
         }
 
@@ -25,11 +22,13 @@ namespace ToDoListMaui.ViewModels
         {
             if (!Validate()) return;
             // try login
-            var user = await Auth.SignInWithEmailAndPasswordAsync(Email, Password, false);
-
-            if (!string.IsNullOrEmpty(CurrentUserId))
+            try
             {
-                await Shell.Current.GoToAsync(nameof(MainPage));
+                _ = await Auth.SignInWithEmailAndPasswordAsync(Email, Password);
+            }
+            catch (Exception e)
+            {
+                await Application.Current.MainPage.DisplayAlert("",e.Message, "Ok");
             }
         }
 
@@ -52,7 +51,7 @@ namespace ToDoListMaui.ViewModels
         [RelayCommand]
         public async Task GoToRegisterPage()
         {
-            await Shell.Current.GoToAsync(nameof(RegisterPage));
+            await Shell.Current.GoToAsync("//RegisterPage");
         }
     }
 }

@@ -41,6 +41,7 @@
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+		<MauiAsset Include="Resources\Raw\credentials.json" />
 	</ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net7.0-android'">
@@ -56,30 +57,29 @@
     <PackageReference Include="Xamarin.Kotlin.StdLib.Jdk8" Version="1.7.10" ExcludeAssets="build;buildTransitive" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Platforms\Android\Resources\values\strings.xml" />
-  </ItemGroup>
-
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="6.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+		<PackageReference Include="FirebaseAuthentication.net" Version="4.0.1" />
+		<PackageReference Include="Google.Cloud.Firestore" Version="3.3.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="Plugin.Firebase" Version="2.0.5" />
-		<PackageReference Include="Plugin.Firebase.Crashlytics" Version="2.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\AccountView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Views\HeaderView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\ProfileViewPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\RegisterPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ToDoListViewPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

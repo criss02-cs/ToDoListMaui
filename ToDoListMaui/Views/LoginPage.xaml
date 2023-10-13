@@ -9,7 +9,8 @@
     x:Name="This"
     Title="LoginPage"
     x:DataType="viewModels:LoginViewModel"
-    Shell.NavBarIsVisible="False">
+    Shell.NavBarIsVisible="False" Shell.TabBarIsVisible="False"
+    Appearing="LoginPage_OnAppearing">
 
     <Page.Behaviors>
         <toolkit:StatusBarBehavior StatusBarColor="{Binding Source={x:Reference This}, Path=Pink}"

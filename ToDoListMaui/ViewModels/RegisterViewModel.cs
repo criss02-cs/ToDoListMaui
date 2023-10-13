@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Plugin.Firebase.Auth;
-using Plugin.Firebase.Firestore;
+using Firebase.Auth;
+using Google.Cloud.Firestore;
 using ToDoListMaui.Models;
+using User = ToDoListMaui.Models.User;
 
 namespace ToDoListMaui.ViewModels
 {
@@ -16,7 +17,7 @@ namespace ToDoListMaui.ViewModels
         [ObservableProperty] private string _name;
         [ObservableProperty] private string _email;
         [ObservableProperty] private string _password;
-        public RegisterViewModel(IFirebaseAuth auth, IFirebaseFirestore db) : base(auth, db)
+        public RegisterViewModel(IFirebaseAuthClient auth) : base(auth)
         {
         }
 
@@ -24,20 +25,24 @@ namespace ToDoListMaui.ViewModels
         public async Task Register()
         {
             if (!Validate()) return;
-            var user = await Auth.CreateUserAsync(Email, Password);
-            if (user != null && !string.IsNullOrEmpty(user.Uid))
+            var response = await Auth.CreateUserWithEmailAndPasswordAsync(Email, Password);
+            if (response != null && !string.IsNullOrEmpty(response.User.Uid))
             {
-                InsertUserRecord(user.Uid);
+                await InsertUserRecordAsync(response.User.Uid);
             }
         }
 
-        private void InsertUserRecord(string id)
+        [RelayCommand]
+        public async Task GoToLoginPage() => await Shell.Current.GoToAsync("//LoginPage");
+
+        private async Task InsertUserRecordAsync(string id)
         {
             var joined = DateTime.UtcNow - new DateTime(1970, 1, 1);
-            var newUser = new User { Email = Email, Id = Guid.Parse(id), Joined = joined };
-            Db.GetCollection("users")
-                .GetDocument(id)
-                .SetDataAsync(newUser.AsDictionary());
+            var newUser = new User { Email = Email, Id = id, Joined = joined };
+            await Db
+                .Collection("users")
+                .Document(id)
+                .SetAsync(newUser.AsDictionary());
         }
 
 

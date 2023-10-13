@@ -1,16 +1,11 @@
 ﻿using CommunityToolkit.Maui;
+using Firebase.Auth;
+using Firebase.Auth.Providers;
+using Google.Apis.Auth.OAuth2;
+using Google.Cloud.Firestore;
 using Microsoft.Extensions.Logging;
-using Microsoft.Maui.LifecycleEvents;
-using Plugin.Firebase.Auth;
-using Plugin.Firebase.Bundled.Shared;
-using Plugin.Firebase.Firestore;
 using ToDoListMaui.ViewModels;
 using ToDoListMaui.Views;
-#if IOS
-using Plugin.Firebase.Bundled.Platforms.iOS;
-#else
-using Plugin.Firebase.Bundled.Platforms.Android;
-#endif
 
 namespace ToDoListMaui
 {
@@ -22,24 +17,17 @@ namespace ToDoListMaui
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
-                .RegisterFirebaseServices()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("fa-brands-400.ttf", "FaBrands");
+                    fonts.AddFont("fa-solid-900.ttf", "FaSolid");
+                    fonts.AddFont("TT-Commons-Bold.otf", "TTCommonsBold");
                 });
-
-            //builder.Services.AddSingleton<IFirebaseAuth>(new FirebaseAuthImplementation());
-            //builder.Services.AddSingleton<IFirebaseFirestore>(new FirebaseFirestoreImplementation());
-            builder.Services.AddSingleton<MainPageViewModel>();
-            builder.Services.AddTransient<LoginViewModel>();
-            builder.Services.AddTransient<RegisterViewModel>();
-            
-            builder.Services.AddSingleton<MainPage>();
-            builder.Services.AddTransient<AccountView>();
-            builder.Services.AddTransient<LoginPage>();
-            builder.Services.AddTransient<RegisterPage>();
-
+            builder.RegisterFirebase();
+            builder.RegisterViewModels();
+            builder.RegisterPages();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
@@ -47,40 +35,40 @@ namespace ToDoListMaui
             return builder.Build();
         }
 
-        private static MauiAppBuilder RegisterFirebaseServices(this MauiAppBuilder builder)
+        private static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder)
         {
-            builder.ConfigureLifecycleEvents(events =>
-            {
-#if IOS
-                events.AddiOS(iOS => iOS.FinishedLaunching((app, launchOptions) =>
-                {
-                    CrossFirebase.Initialize(CreateCrossFirebaseSettings());
-                    return false;
-                }));
-#else
-                events.AddAndroid(android => android.OnCreate((activity, _) =>
-                    CrossFirebase.Initialize(activity, CreateCrossFirebaseSettings())));
-#endif
-            });
-            builder.Services.AddSingleton(_ => CrossFirebaseAuth.Current);
-            builder.Services.AddSingleton(_ => CrossFirebaseFirestore.Current);
+            builder.Services.AddSingleton<MainPageViewModel>();
+            builder.Services.AddTransient<LoginViewModel>();
+            builder.Services.AddTransient<RegisterViewModel>();
+            builder.Services.AddTransient<RegisterViewModel>();
+            builder.Services.AddTransient<ToDoListViewViewModel>();
+            builder.Services.AddTransient<ProfileViewModel>();
             return builder;
         }
 
-
-        private static CrossFirebaseSettings CreateCrossFirebaseSettings()
+        private static MauiAppBuilder RegisterPages(this MauiAppBuilder builder)
         {
-            var settings = new CrossFirebaseSettings(
-                isAnalyticsEnabled: false,
-                isAuthEnabled: true,
-                isCloudMessagingEnabled: false,
-                isDynamicLinksEnabled: false,
-                isFirestoreEnabled: true,
-                isFunctionsEnabled: false,
-                isRemoteConfigEnabled: false,
-                isStorageEnabled: false,
-                googleRequestIdToken: "537235599720-723cgj10dtm47b4ilvuodtp206g0q0fg.apps.googleusercontent.com");
-            return settings;
+            builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddTransient<LoginPage>();
+            builder.Services.AddTransient<RegisterPage>();
+            builder.Services.AddTransient<ToDoListViewPage>();
+            builder.Services.AddTransient<ProfileViewPage>();
+            return builder;
+        }
+
+        private static MauiAppBuilder RegisterFirebase(this MauiAppBuilder builder)
+        {
+            var config = new FirebaseAuthConfig
+            {
+                ApiKey = "AIzaSyA6T2O0Bgq6DYUrzASJffeivMQtWTkysO0",
+                AuthDomain = "todolist-e06c5.firebaseapp.com",
+                Providers = new FirebaseAuthProvider[]
+                {
+                    new EmailProvider()
+                }
+            };
+            builder.Services.AddSingleton<IFirebaseAuthClient>(new FirebaseAuthClient(config));
+            return builder;
         }
     }
 }

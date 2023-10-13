@@ -1,8 +1,11 @@
-﻿<?xml version = "1.0" encoding = "UTF-8" ?>
-<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:ToDoListMaui"
-             x:Class="ToDoListMaui.App">
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Application
+    x:Class="ToDoListMaui.App"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:ToDoListMaui"
+    xmlns:views="clr-namespace:ToDoListMaui.Views"
+    xmlns:font="clr-namespace:ToDoListMaui.FontModels">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -10,5 +13,56 @@
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+        
     </Application.Resources>
+    <Application.MainPage>
+        <Shell x:Name="Shell">
+            <Shell.Resources>
+                <Style TargetType="Tab" ApplyToDerivedTypes="True" x:Key="IsLoginVisible">
+                    <Style.Triggers>
+                        <DataTrigger TargetType="Tab" Binding="{x:Reference Shell.CurrentItem}">
+
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Shell.Resources>
+            <TabBar Shell.TabBarBackgroundColor="White" Shell.TabBarTitleColor="Black">
+                <Tab
+                    x:Name="Main"
+                    Title="Main"
+                    Icon="dotnet_bot.svg"
+                    IsVisible="False"
+                    Route="Main">
+                    <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
+                </Tab>
+                <Tab
+                    Title="Login"
+                    IsVisible="False"
+                    Route="LoginPage">
+                    <ShellContent ContentTemplate="{DataTemplate views:LoginPage}" />
+                </Tab>
+                <Tab
+                    Title="Register"
+                    IsVisible="False"
+                    Icon="dotnet_bot.svg"
+                    Route="RegisterPage">
+                    <ShellContent ContentTemplate="{DataTemplate views:RegisterPage}" />
+                </Tab>
+                <Tab
+                    x:Name="Home"
+                    Title="Home"
+                    Icon="{FontImageSource FontFamily=FaSolid, Glyph={x:Static font:FaSolidIcons.House}}"
+                    Route="Home">
+                    <ShellContent ContentTemplate="{DataTemplate views:ToDoListViewPage}" />
+                </Tab>
+                <Tab
+                    x:Name="Profile"
+                    Title="Profile"
+                    Icon="{FontImageSource FontFamily=FaSolid, Glyph={x:Static font:FaSolidIcons.User}}"
+                    Route="Profile">
+                    <ShellContent ContentTemplate="{DataTemplate views:ProfileViewPage}" />
+                </Tab>
+            </TabBar>
+        </Shell>
+    </Application.MainPage>
 </Application>

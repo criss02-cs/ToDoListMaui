@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:ToDoListMaui.ViewModels"
+             xmlns:models="clr-namespace:ToDoListMaui.Models"
+             x:Class="ToDoListMaui.Views.ToDoListViewPage"
+             x:DataType="viewModels:ToDoListViewViewModel">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add"/>
+    </ContentPage.ToolbarItems>
+    <CollectionView ItemsSource="{Binding ToDoList}" SelectionMode="None">
+        <CollectionView.ItemsLayout>
+            <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
+        </CollectionView.ItemsLayout>
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="models:ToDoListItem">
+                <HorizontalStackLayout>
+                    <VerticalStackLayout>
+                        <Label Text="{Binding Title}"/>
+                        <Label Text="{Binding DueDate}" TextColor="{StaticResource Secondary}"/>
+                    </VerticalStackLayout>
+                    <CheckBox IsChecked="{Binding IsDone}" Color="Blue"/>
+                </HorizontalStackLayout>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+</ContentPage>

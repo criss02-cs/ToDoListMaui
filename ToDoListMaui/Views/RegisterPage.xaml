@@ -7,12 +7,14 @@
              x:Class="ToDoListMaui.Views.RegisterPage"
              x:DataType="viewModels:RegisterViewModel"
              Shell.BackgroundColor="Orange"
-             Title="">
+             Shell.NavBarIsVisible="True" Shell.TabBarIsVisible="False"
+             Appearing="RegisterPage_OnAppearing">
     <Page.Behaviors>
         <toolkit:StatusBarBehavior StatusBarColor="Orange"
                                    StatusBarStyle="LightContent"/>
     </Page.Behaviors>
     <VerticalStackLayout>
+
         <views:HeaderView
             Title="Register"
             Angle="-15"
@@ -40,5 +42,17 @@
                 </VerticalStackLayout>
             </Frame>
         </Frame>
+        <VerticalStackLayout Padding="10,20,10,10">
+            <Label HorizontalOptions="Center" Text="Already have an account?" />
+            <Label
+                Margin="0,10,0,0"
+                HorizontalOptions="Center"
+                Text="Sig In!"
+                TextColor="Blue">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToLoginPageCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

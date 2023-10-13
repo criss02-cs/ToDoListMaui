@@ -1,17 +1,25 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Firebase.Auth;
-using Plugin.Firebase.Auth;
-using Plugin.Firebase.Firestore;
+using Google.Cloud.Firestore;
 using ToDoListMaui.Views;
 
 namespace ToDoListMaui.ViewModels
 {
     public partial class MainPageViewModel : BaseViewModel
     {
-        public bool IsSignedIn => Auth.CurrentUser != null;
+        public bool IsSignedIn => Auth.User != null;
 
-        public MainPageViewModel(IFirebaseAuth auth, IFirebaseFirestore db) : base(auth, db)
+        public MainPageViewModel(IFirebaseAuthClient auth) : base(auth)
         {
+            auth.AuthStateChanged += (sender, args) =>
+            {
+                MainThread.BeginInvokeOnMainThread(CheckUserLogged);
+            };
+        }
+
+        private async void CheckUserLogged()
+        {
+            await OnAppearingAsync();
         }
 
         [RelayCommand]
@@ -19,11 +27,11 @@ namespace ToDoListMaui.ViewModels
         {
             if (IsSignedIn)
             {
-                await Shell.Current.GoToAsync(nameof(AccountView));
+                await Shell.Current.GoToAsync("//Home");
             }
             else
             {
-                await Shell.Current.GoToAsync(nameof(LoginPage));
+                await Shell.Current.GoToAsync("//LoginPage");
             }
         }
 

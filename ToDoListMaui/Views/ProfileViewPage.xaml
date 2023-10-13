@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:font="clr-namespace:ToDoListMaui.FontModels"
+             xmlns:viewModels="clr-namespace:ToDoListMaui.ViewModels"
+             xmlns:models="clr-namespace:ToDoListMaui.Models"
+             x:Class="ToDoListMaui.Views.ProfileViewPage"
+             x:DataType="viewModels:ProfileViewModel"
+             Title="ProfileViewPage">
+    <VerticalStackLayout Padding="10" Spacing="20" VerticalOptions="Center">
+        <Image WidthRequest="125" HeightRequest="125" Aspect="AspectFit" >
+            <Image.Source>
+                <FontImageSource FontFamily="FaSolid" Glyph="{x:Static font:FaSolidIcons.User}" Color="Blue"/>
+            </Image.Source>
+        </Image>
+        <VerticalStackLayout HorizontalOptions="Center" Spacing="20" >
+            <HorizontalStackLayout Spacing="10">
+                <Label Text="Name:" FontAttributes="Bold"/>
+                <Label Text="{Binding User.Name}" FontAttributes="None"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Spacing="10">
+                <Label Text="Email:" FontAttributes="Bold"/>
+                <Label Text="{Binding User.Email}" FontAttributes="None"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Spacing="10">
+                <Label Text="Member since:" FontAttributes="Bold"/>
+                <Label Text="31/09/2023" FontAttributes="None"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+        <Button Text="Log Out" BackgroundColor="Red" Command="{Binding LogoutCommand}" />
+    </VerticalStackLayout>
+</ContentPage>
