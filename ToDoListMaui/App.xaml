@@ -17,15 +17,6 @@
     </Application.Resources>
     <Application.MainPage>
         <Shell x:Name="Shell">
-            <!-- <Shell.Resources> -->
-            <!--     <Style TargetType="Tab" ApplyToDerivedTypes="True" x:Key="IsLoginVisible"> -->
-            <!--         <Style.Triggers> -->
-            <!--             <DataTrigger TargetType="Tab" Binding="{x:Reference Shell.CurrentItem}"> -->
-            <!-- -->
-            <!--             </DataTrigger> -->
-            <!--         </Style.Triggers> -->
-            <!--     </Style> -->
-            <!-- </Shell.Resources> -->
             <TabBar Shell.TabBarBackgroundColor="White" Shell.TabBarTitleColor="Black">
                 <Tab
                     x:Name="Main"
