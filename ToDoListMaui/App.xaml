@@ -17,28 +17,16 @@
     </Application.Resources>
     <Application.MainPage>
         <Shell x:Name="Shell">
-            <TabBar Shell.TabBarBackgroundColor="White" Shell.TabBarTitleColor="Black">
-                <Tab
-                    x:Name="Main"
-                    Title="Main"
-                    Icon="dotnet_bot.svg"
-                    IsVisible="False"
-                    Route="Main">
-                    <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
-                </Tab>
-                <Tab
-                    Title="Login"
-                    IsVisible="False"
-                    Route="LoginPage">
-                    <ShellContent ContentTemplate="{DataTemplate views:LoginPage}" />
-                </Tab>
-                <Tab
-                    Title="Register"
-                    IsVisible="False"
-                    Icon="dotnet_bot.svg"
-                    Route="RegisterPage">
-                    <ShellContent ContentTemplate="{DataTemplate views:RegisterPage}" />
-                </Tab>
+            <ShellItem Route="MainPage">
+                <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
+            </ShellItem>
+            <ShellItem Route="Login">
+                <ShellContent ContentTemplate="{DataTemplate views:LoginPage}" />
+            </ShellItem>
+            <ShellItem Route="Register">
+                <ShellContent ContentTemplate="{DataTemplate views:RegisterPage}" />
+            </ShellItem>
+            <TabBar Shell.TabBarBackgroundColor="White" Shell.TabBarTitleColor="Black" Route="main">
                 <Tab
                     x:Name="Home"
                     Title="Home"

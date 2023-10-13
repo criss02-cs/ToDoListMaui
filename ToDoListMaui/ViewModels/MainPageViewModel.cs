@@ -27,11 +27,11 @@ namespace ToDoListMaui.ViewModels
         {
             if (IsSignedIn)
             {
-                await Shell.Current.GoToAsync("//Home");
+                await Shell.Current.GoToAsync("//main");
             }
             else
             {
-                await Shell.Current.GoToAsync("//LoginPage");
+                await Shell.Current.GoToAsync("//Login");
             }
         }
 

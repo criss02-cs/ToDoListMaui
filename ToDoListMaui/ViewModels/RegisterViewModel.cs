@@ -29,11 +29,12 @@ namespace ToDoListMaui.ViewModels
             if (response != null && !string.IsNullOrEmpty(response.User.Uid))
             {
                 await InsertUserRecordAsync(response.User.Uid);
+                await Shell.Current.GoToAsync("//main");
             }
         }
 
         [RelayCommand]
-        public async Task GoToLoginPage() => await Shell.Current.GoToAsync("//LoginPage");
+        public async Task GoToLoginPage() => await Shell.Current.GoToAsync("//Login");
 
         private async Task InsertUserRecordAsync(string id)
         {

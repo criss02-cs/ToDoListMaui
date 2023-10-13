@@ -51,7 +51,7 @@ namespace ToDoListMaui.ViewModels
         [RelayCommand]
         public async Task GoToRegisterPage()
         {
-            await Shell.Current.GoToAsync("//RegisterPage");
+            await Shell.Current.GoToAsync("//Login");
         }
     }
 }

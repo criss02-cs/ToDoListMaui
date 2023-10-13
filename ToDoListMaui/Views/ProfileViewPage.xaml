@@ -13,14 +13,14 @@
                 <FontImageSource FontFamily="FaSolid" Glyph="{x:Static font:FaSolidIcons.User}" Color="Blue"/>
             </Image.Source>
         </Image>
-        <VerticalStackLayout HorizontalOptions="Center" Spacing="20" >
+        <VerticalStackLayout HorizontalOptions="Center" Spacing="20">
             <HorizontalStackLayout Spacing="10">
                 <Label Text="Name:" FontAttributes="Bold"/>
-                <Label Text="{Binding User.Name}" FontAttributes="None"/>
+                <Label Text="Cristiano" FontAttributes="None"/>
             </HorizontalStackLayout>
             <HorizontalStackLayout Spacing="10">
                 <Label Text="Email:" FontAttributes="Bold"/>
-                <Label Text="{Binding User.Email}" FontAttributes="None"/>
+                <Label Text="cristianoaloigi0@gmail.com" FontAttributes="None"/>
             </HorizontalStackLayout>
             <HorizontalStackLayout Spacing="10">
                 <Label Text="Member since:" FontAttributes="Bold"/>
