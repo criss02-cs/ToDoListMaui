@@ -10,17 +10,11 @@ using JsonConverter = Newtonsoft.Json.JsonConverter;
 
 namespace ToDoListMaui.Models
 {
-    [FirestoreData]
-    public class User
+    public record User
     {
-        [FirestoreProperty("id")]
         public string Id { get; set; }
-        [FirestoreProperty("name")]
         public string Name { get; set; }
-        [FirestoreProperty("email")]
         public string Email { get; set; }
-        // todo capire come convertire da double a timespan quando legge da firebase
-        [FirestoreProperty("joined")]
         public TimeSpan Joined { get; set; }
     }
 

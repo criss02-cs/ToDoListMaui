@@ -1,32 +1,61 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:font="clr-namespace:ToDoListMaui.FontModels"
-             xmlns:viewModels="clr-namespace:ToDoListMaui.ViewModels"
-             xmlns:models="clr-namespace:ToDoListMaui.Models"
-             x:Class="ToDoListMaui.Views.ProfileViewPage"
-             x:DataType="viewModels:ProfileViewModel"
-             Title="ProfileViewPage">
-    <VerticalStackLayout Padding="10" Spacing="20" VerticalOptions="Center">
-        <Image WidthRequest="125" HeightRequest="125" Aspect="AspectFit" >
+<ContentPage
+    x:Class="ToDoListMaui.Views.ProfileViewPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:ToDoListMaui.Converters"
+    xmlns:font="clr-namespace:ToDoListMaui.FontModels"
+    xmlns:models="clr-namespace:ToDoListMaui.Models"
+    xmlns:toolkit1="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewModels="clr-namespace:ToDoListMaui.ViewModels"
+    Title="Profile"
+    Shell.BackgroundColor="White"
+    Shell.TitleColor="Black"
+    x:DataType="viewModels:ProfileViewModel" Appearing="ProfileViewPage_OnAppearing">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:TimeSpanToDateTimeConverter x:Key="TimeSpanToDateTime" />
+            <toolkit1:InvertedBoolConverter x:Key="InvertedBool" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <VerticalStackLayout
+        Padding="10"
+        Spacing="20"
+        VerticalOptions="Center">
+        <Image
+            Aspect="AspectFit"
+            HeightRequest="125"
+            IsVisible="{Binding ShowLoading, Converter={StaticResource InvertedBool}}"
+            WidthRequest="125">
             <Image.Source>
-                <FontImageSource FontFamily="FaSolid" Glyph="{x:Static font:FaSolidIcons.User}" Color="Blue"/>
+                <FontImageSource
+                    FontFamily="FaSolid"
+                    Glyph="{x:Static font:FaSolidIcons.User}"
+                    Color="Blue" />
             </Image.Source>
         </Image>
-        <VerticalStackLayout HorizontalOptions="Center" Spacing="20">
+        <VerticalStackLayout
+            HorizontalOptions="Center"
+            IsVisible="{Binding ShowLoading, Converter={StaticResource InvertedBool}}"
+            Spacing="20">
             <HorizontalStackLayout Spacing="10">
-                <Label Text="Name:" FontAttributes="Bold"/>
-                <Label Text="{Binding User.Name}" FontAttributes="None"/>
+                <Label FontAttributes="Bold" Text="Name:" />
+                <Label FontAttributes="None" Text="{Binding User.Name}" />
             </HorizontalStackLayout>
             <HorizontalStackLayout Spacing="10">
-                <Label Text="Email:" FontAttributes="Bold"/>
-                <Label Text="{Binding User.Email}" FontAttributes="None"/>
+                <Label FontAttributes="Bold" Text="Email:" />
+                <Label FontAttributes="None" Text="{Binding User.Email}" />
             </HorizontalStackLayout>
             <HorizontalStackLayout Spacing="10">
-                <Label Text="Member since:" FontAttributes="Bold"/>
-                <Label Text="{Binding User.Joined, StringFormat='{0:dd-MM-yyyy}'}" FontAttributes="None"/>
+                <Label FontAttributes="Bold" Text="Member since:" />
+                <Label FontAttributes="None" Text="{Binding User.Joined, Converter={StaticResource TimeSpanToDateTime}}" />
             </HorizontalStackLayout>
         </VerticalStackLayout>
-        <Button Text="Log Out" BackgroundColor="Red" Command="{Binding LogoutCommand}" />
+        <Button
+            BackgroundColor="Red"
+            Command="{Binding LogoutCommand}"
+            IsVisible="{Binding ShowLoading, Converter={StaticResource InvertedBool}}"
+            Text="Log Out" />
+        <ActivityIndicator IsRunning="{Binding ShowLoading}" />
     </VerticalStackLayout>
 </ContentPage>

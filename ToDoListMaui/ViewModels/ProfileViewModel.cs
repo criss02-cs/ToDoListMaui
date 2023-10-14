@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Firebase.Auth;
 using ToDoListMaui.Models;
+using ToDoListMaui.Models.UserAdapter;
 using DocumentSnapshot = Google.Cloud.Firestore.DocumentSnapshot;
 using User = ToDoListMaui.Models.User;
 
@@ -14,7 +15,10 @@ namespace ToDoListMaui.ViewModels
 {
     public partial class ProfileViewModel : BaseViewModel
     {
-        [ObservableProperty] private User _user = UserConstants.EmptyUser;
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(ShowLoading))]
+        private User _user = UserConstants.EmptyUser;
+        public bool ShowLoading => User == UserConstants.EmptyUser;
         public ProfileViewModel(IFirebaseAuthClient auth) : base(auth)
         {
             FetchUserCommand.Execute(null);
@@ -36,8 +40,9 @@ namespace ToDoListMaui.ViewModels
         {
             try
             {
-                var user = snapshot.ConvertTo<User>();
-                User = user;
+                var adapter = new UserAdapter();
+                User = adapter.ToUser(snapshot);
+                OnPropertyChanged(nameof(ShowLoading));
             }
             catch (Exception e)
             {

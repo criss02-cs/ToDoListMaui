@@ -23,6 +23,8 @@ namespace ToDoListMaui.ViewModels
 
         private async Task LoadItemsAsync()
         {
+            if (CurrentUserId is null) return;
+            if (Db is null) await MainThread.InvokeOnMainThreadAsync(CreateFirestoreDbAsync);
             var collection = await Db.Collection($"users/{CurrentUserId}/todos").GetSnapshotAsync();
             ToDoList.Clear();
             foreach (var item in collection.Documents)

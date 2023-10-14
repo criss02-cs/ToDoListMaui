@@ -1,10 +1,6 @@
-﻿using System.Net.Http.Json;
-using System.Text.Json.Serialization;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Firebase.Auth;
-using Newtonsoft.Json;
-using ToDoListMaui.Views;
 
 namespace ToDoListMaui.ViewModels
 {
@@ -26,9 +22,9 @@ namespace ToDoListMaui.ViewModels
             {
                 _ = await Auth.SignInWithEmailAndPasswordAsync(Email.Trim().ToLower(), Password);
             }
-            catch (Exception e)
+            catch (FirebaseAuthHttpException e)
             {
-                await Application.Current.MainPage.DisplayAlert("",e.Message, "Ok");
+                await Application.Current.MainPage.DisplayAlert("Errore",e.ResponseData, "Ok");
             }
         }
 

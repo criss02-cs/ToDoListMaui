@@ -1,26 +1,41 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewModels="clr-namespace:ToDoListMaui.ViewModels"
-             xmlns:models="clr-namespace:ToDoListMaui.Models"
-             x:Class="ToDoListMaui.Views.ToDoListViewPage"
-             x:DataType="viewModels:ToDoListViewViewModel">
+<ContentPage
+    x:Class="ToDoListMaui.Views.ToDoListViewPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:ToDoListMaui.Converters"
+    xmlns:font="clr-namespace:ToDoListMaui.FontModels"
+    xmlns:models="clr-namespace:ToDoListMaui.Models"
+    xmlns:viewModels="clr-namespace:ToDoListMaui.ViewModels"
+    x:DataType="viewModels:ToDoListViewViewModel"
+    Appearing="ToDoListViewPage_OnAppearing">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:TimeSpanToDateTimeConverter x:Key="TimeSpanToDateTime" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add"/>
+        <ToolbarItem IconImageSource="{FontImageSource FontFamily='FaSolid', Glyph={x:Static font:FaSolidIcons.Plus}, Color=White}" />
     </ContentPage.ToolbarItems>
-    <CollectionView ItemsSource="{Binding ToDoList}" SelectionMode="None">
+    <CollectionView
+        x:Name="ToDoList"
+        ItemsSource="{Binding ToDoList}"
+        SelectionMode="None">
         <CollectionView.ItemsLayout>
             <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
         </CollectionView.ItemsLayout>
         <CollectionView.ItemTemplate>
             <DataTemplate x:DataType="models:ToDoListItem">
-                <HorizontalStackLayout>
-                    <VerticalStackLayout>
-                        <Label Text="{Binding Title}"/>
-                        <Label Text="{Binding DueDate}" TextColor="{StaticResource Secondary}"/>
+                <Grid ColumnDefinitions="*, 50" Padding="10">
+                    <VerticalStackLayout Grid.Column="0">
+                        <Label Text="{Binding Title}" />
+                        <Label Text="{Binding DueDate, Converter={StaticResource TimeSpanToDateTime}}" TextColor="{StaticResource Secondary}" />
                     </VerticalStackLayout>
-                    <CheckBox IsChecked="{Binding IsDone}" Color="Blue"/>
-                </HorizontalStackLayout>
+                    <CheckBox
+                        Grid.Column="1"
+                        IsChecked="{Binding IsDone}"
+                        Color="Blue" />
+                </Grid>
             </DataTemplate>
         </CollectionView.ItemTemplate>
     </CollectionView>
