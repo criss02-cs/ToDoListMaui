@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Firebase.Auth;
 using ToDoListMaui.Models;
+using DocumentSnapshot = Google.Cloud.Firestore.DocumentSnapshot;
 using User = ToDoListMaui.Models.User;
 
 namespace ToDoListMaui.ViewModels
@@ -20,22 +21,32 @@ namespace ToDoListMaui.ViewModels
         }
 
         [RelayCommand]
-        public async Task FetchUser()
+        private async Task FetchUser()
         {
             if (CurrentUserId is null) return;
+            if (Db is null) await MainThread.InvokeOnMainThreadAsync(CreateFirestoreDbAsync); 
             var userSnapshot = await Db.Collection("users")
                 .Document(CurrentUserId)
                 .GetSnapshotAsync();
             if(userSnapshot == null) return;
-            MainThread.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() => CreateUserFromSnapshot(userSnapshot));
+        }
+
+        private async void CreateUserFromSnapshot(DocumentSnapshot snapshot)
+        {
+            try
             {
-                var user = userSnapshot.ConvertTo<User>();
+                var user = snapshot.ConvertTo<User>();
                 User = user;
-            });
+            }
+            catch (Exception e)
+            {
+                await Application.Current.MainPage.DisplayAlert("", e.Message, "Ok");
+            }
         }
 
         [RelayCommand]
-        public async Task Logout()
+        private async Task Logout()
         {
             try
             {

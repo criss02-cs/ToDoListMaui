@@ -16,15 +16,15 @@
         <VerticalStackLayout HorizontalOptions="Center" Spacing="20">
             <HorizontalStackLayout Spacing="10">
                 <Label Text="Name:" FontAttributes="Bold"/>
-                <Label Text="Cristiano" FontAttributes="None"/>
+                <Label Text="{Binding User.Name}" FontAttributes="None"/>
             </HorizontalStackLayout>
             <HorizontalStackLayout Spacing="10">
                 <Label Text="Email:" FontAttributes="Bold"/>
-                <Label Text="cristianoaloigi0@gmail.com" FontAttributes="None"/>
+                <Label Text="{Binding User.Email}" FontAttributes="None"/>
             </HorizontalStackLayout>
             <HorizontalStackLayout Spacing="10">
                 <Label Text="Member since:" FontAttributes="Bold"/>
-                <Label Text="31/09/2023" FontAttributes="None"/>
+                <Label Text="{Binding User.Joined, StringFormat='{0:dd-MM-yyyy}'}" FontAttributes="None"/>
             </HorizontalStackLayout>
         </VerticalStackLayout>
         <Button Text="Log Out" BackgroundColor="Red" Command="{Binding LogoutCommand}" />

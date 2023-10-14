@@ -16,11 +16,11 @@ namespace ToDoListMaui.ViewModels
         protected BaseViewModel(IFirebaseAuthClient auth)
         {
             Auth = auth;
-            _ = CreateFirestoreDbAsync();
+            // Task.Run(CreateFirestoreDbAsync);
         }
 
 
-        private async Task CreateFirestoreDbAsync()
+        protected async Task CreateFirestoreDbAsync()
         {
             var localPath = Path.Combine(FileSystem.CacheDirectory, "credentials.json");
             await using var json = await FileSystem.OpenAppPackageFileAsync("credentials.json");
@@ -28,7 +28,7 @@ namespace ToDoListMaui.ViewModels
             await json.CopyToAsync(dest);
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", localPath);
             dest.Close();
-            Db = FirestoreDb.Create("todolist-e06c5");
+            Db = await FirestoreDb.CreateAsync("todolist-e06c5");
         }
 
         protected string CurrentUserId => Auth?.User?.Uid ?? "";

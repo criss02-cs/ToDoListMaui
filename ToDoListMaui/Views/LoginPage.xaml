@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage
     x:Class="ToDoListMaui.Views.LoginPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -14,8 +15,13 @@
 
     <Page.Behaviors>
         <toolkit:StatusBarBehavior StatusBarColor="{Binding Source={x:Reference This}, Path=Pink}"
-                                   StatusBarStyle="LightContent"/>
+                                   StatusBarStyle="LightContent" />
     </Page.Behaviors>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:TextCaseConverter x:Key="AutocapitalizeDisabled" Type="Lower" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <VerticalStackLayout>
         <views:HeaderView
             Title="To Do List"
@@ -29,7 +35,9 @@
             Opacity="0.5">
             <Frame Margin="5,5,5,20" BackgroundColor="White" HeightRequest="180" VerticalOptions="Start">
                 <VerticalStackLayout>
-                    <Entry Text="{Binding Email}" Placeholder="Email"/>
+                    <Entry
+                        Text="{Binding Email}"
+                        Placeholder="Email" />
                     <Entry Text="{Binding Password}" Placeholder="Password" IsPassword="True" />
                     <Button
                         BackgroundColor="Blue"

@@ -24,7 +24,7 @@ namespace ToDoListMaui.ViewModels
             // try login
             try
             {
-                _ = await Auth.SignInWithEmailAndPasswordAsync(Email, Password);
+                _ = await Auth.SignInWithEmailAndPasswordAsync(Email.Trim().ToLower(), Password);
             }
             catch (Exception e)
             {

@@ -5,15 +5,22 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Google.Cloud.Firestore;
 using JsonConverter = Newtonsoft.Json.JsonConverter;
 
 namespace ToDoListMaui.Models
 {
-    public record User
+    [FirestoreData]
+    public class User
     {
+        [FirestoreProperty("id")]
         public string Id { get; set; }
+        [FirestoreProperty("name")]
         public string Name { get; set; }
+        [FirestoreProperty("email")]
         public string Email { get; set; }
+        // todo capire come convertire da double a timespan quando legge da firebase
+        [FirestoreProperty("joined")]
         public TimeSpan Joined { get; set; }
     }
 
